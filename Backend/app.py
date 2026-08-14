@@ -4,6 +4,7 @@ import joblib
 import os
 
 app = Flask(__name__)
+cors (app)
 
 # Load trained machine failure model
 MODEL_PATH = os.path.join(
