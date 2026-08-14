@@ -3,580 +3,1007 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Industrial Decision Intelligence Platform</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-:root {
-    --bg: #050b14;
-    --sidebar: #07101d;
-    --panel: #0a1625;
-    --panel2: #0c1b2d;
-    --border: #1b3853;
-    --text: #f4f7fb;
-    --muted: #8fa5bb;
-    --blue: #2979ff;
-    --purple: #7c4dff;
-    --green: #20d98c;
-    --yellow: #ffb020;
-    --orange: #ff7a1a;
-    --red: #ff414d;
+:root{
+    --bg:#050b14;
+    --sidebar:#07101d;
+    --panel:#0a1625;
+    --panel2:#0d1b2b;
+    --border:#1b3853;
+
+    --text:#f4f7fb;
+    --muted:#8fa5bb;
+
+    --blue:#247bff;
+    --purple:#6f45ff;
+
+    --green:#18d88a;
+    --yellow:#ffb020;
+    --orange:#ff7a1a;
+    --red:#ff414d;
 }
 
-body {
-    font-family: Inter, Arial, sans-serif;
+body{
+    font-family:Arial,sans-serif;
     background:
-        radial-gradient(circle at 60% 0%, rgba(30,90,160,.12), transparent 35%),
+        radial-gradient(circle at 60% 0%,rgba(25,100,200,.12),transparent 35%),
         var(--bg);
-    color: var(--text);
-    min-height: 100vh;
+    color:var(--text);
+    min-height:100vh;
 }
 
-.app {
-    display: flex;
-    min-height: 100vh;
+.app{
+    display:flex;
+    min-height:100vh;
 }
 
-/* SIDEBAR */
+/* =========================================
+   SIDEBAR
+========================================= */
 
-.sidebar {
-    width: 230px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, #07101d, #040912);
-    border-right: 1px solid var(--border);
-    padding: 22px 16px;
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-}
+.sidebar{
+    width:230px;
+    position:fixed;
+    inset:0 auto 0 0;
 
-.logo {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 28px;
-}
-
-.logo-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    font-size: 27px;
-    background: linear-gradient(135deg, #683cff, #008cff);
-    box-shadow: 0 0 30px rgba(67,76,255,.25);
-}
-
-.logo h2 {
-    font-size: 25px;
-}
-
-.logo p {
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.4;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.menu-item {
-    border-radius: 9px;
-    padding: 13px 14px;
-    color: #c5d1de;
-    font-size: 14px;
-    cursor: default;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.menu-item.active {
-    color: white;
-    background: linear-gradient(90deg, #3141b8, #1874ed);
-    box-shadow: 0 8px 22px rgba(30,90,255,.18);
-}
-
-.sidebar-bottom {
-    margin-top: auto;
-}
-
-.overview {
-    border: 1px solid var(--border);
-    background: #081424;
-    padding: 15px;
-    border-radius: 10px;
-}
-
-.overview-title {
-    margin-bottom: 16px;
-    font-size: 13px;
-}
-
-.over-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 13px 0;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-.over-row b {
-    color: white;
-}
-
-/* MAIN */
-
-.main {
-    margin-left: 230px;
-    width: calc(100% - 230px);
-}
-
-.topbar {
-    height: 57px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 28px;
-}
-
-.online {
-    border: 1px solid #24435e;
-    background: #08182a;
-    padding: 8px 17px;
-    border-radius: 30px;
-    color: #66efa8;
-    font-size: 12px;
-}
-
-.online-dot {
-    width: 8px;
-    height: 8px;
-    background: #2bdc8b;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 8px;
-    box-shadow: 0 0 10px #2bdc8b;
-}
-
-.content {
-    padding: 24px 26px 35px;
-    max-width: 1650px;
-    margin: auto;
-}
-
-.heading {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.heading h1 {
-    font-size: 28px;
-    margin-bottom: 7px;
-}
-
-.heading p {
-    color: var(--muted);
-    font-size: 13px;
-}
-
-#lastAnalysis {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 12px;
-}
-
-/* CARDS */
-
-.kpis {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 13px;
-    margin-bottom: 18px;
-}
-
-.card {
-    background: linear-gradient(145deg, #0b1929, #081321);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: inset 0 1px rgba(255,255,255,.02);
-}
-
-.card-title {
-    font-size: 13px;
-    color: #e2e8ef;
-    margin-bottom: 14px;
-}
-
-.big {
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 8px;
-}
-
-.small {
-    color: var(--muted);
-    font-size: 12px;
-}
-
-.red { color: var(--red); }
-.green { color: var(--green); }
-.yellow { color: var(--yellow); }
-.blue { color: #55a4ff; }
-
-.metric-icon {
-    float: right;
-    width: 50px;
-    height: 50px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    font-size: 24px;
-    border: 1px solid currentColor;
-    background: rgba(255,255,255,.025);
-}
-
-/* CENTER GRID */
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 340px 1fr 360px;
-    gap: 14px;
-    align-items: start;
-}
-
-.section-title {
-    font-size: 14px;
-    margin-bottom: 18px;
-}
-
-/* GAUGE */
-
-.gauge {
-    width: 250px;
-    height: 125px;
-    margin: 20px auto 0;
-    overflow: hidden;
-    position: relative;
-}
-
-.gauge-ring {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    background: conic-gradient(
-        from 270deg,
-        #27d96f 0deg,
-        #f1d82b 60deg,
-        #ff9819 105deg,
-        #ff3b48 180deg,
-        #182536 180deg
-    );
-    position: absolute;
-}
-
-.gauge-inner {
-    position: absolute;
-    width: 190px;
-    height: 190px;
-    top: 30px;
-    left: 30px;
-    background: #0a1727;
-    border-radius: 50%;
-}
-
-.gauge-number {
-    text-align: center;
-    font-size: 37px;
-    font-weight: 800;
-    margin-top: 15px;
-}
-
-.gauge-label {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-}
-
-.gauge-scale {
-    display: flex;
-    justify-content: space-between;
-    color: var(--muted);
-    font-size: 11px;
-    margin: 7px 7px 0;
-}
-
-.risk-message {
-    border: 1px solid var(--border);
-    background: #071321;
-    border-radius: 8px;
-    padding: 14px;
-    margin-top: 18px;
-    color: #b3c1cf;
-    font-size: 12px;
-    line-height: 1.6;
-}
-
-/* GRAPH */
-
-.chart-area {
-    height: 295px;
-    position: relative;
-}
-
-canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.legend {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    font-size: 11px;
-    margin-bottom: 10px;
-    color: var(--muted);
-}
-
-.dot {
-    width: 18px;
-    height: 3px;
-    display: inline-block;
-    margin-right: 5px;
-    vertical-align: middle;
-}
-
-.dot1 { background: #3489ff; }
-.dot2 { background: #a75eff; }
-.dot3 { background: #48d76d; }
-.dot4 { background: #ffad22; }
-.dot5 { background: #ff4164; }
-
-/* AI PANEL */
-
-.ai-head {
-    text-align: center;
-    padding: 8px 0 12px;
-}
-
-.ai-brain {
-    margin: auto;
-    width: 90px;
-    height: 90px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    font-size: 44px;
     background:
-        radial-gradient(circle, rgba(78,74,255,.25), transparent 65%);
-    text-shadow: 0 0 25px #6748ff;
+        linear-gradient(180deg,#07101d,#040912);
+
+    border-right:1px solid var(--border);
+
+    padding:20px 15px;
+
+    display:flex;
+    flex-direction:column;
+
+    z-index:20;
 }
 
-.ai-action {
-    font-size: 20px;
-    font-weight: 800;
-    text-align: center;
-    margin: 8px 0 12px;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    margin-bottom:28px;
 }
 
-.ai-copy {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.6;
+.logo-icon{
+    width:52px;
+    height:52px;
+
+    border-radius:15px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:27px;
+
+    background:
+        linear-gradient(135deg,#673cff,#008cff);
+
+    box-shadow:
+        0 0 28px rgba(78,66,255,.3);
 }
 
-.ai-list {
-    list-style: none;
-    margin-top: 16px;
+.logo h2{
+    font-size:24px;
 }
 
-.ai-list li {
-    font-size: 12px;
-    margin: 10px 0;
-    color: #c4d0dd;
+.logo p{
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:10px;
+    line-height:1.4;
 }
 
-.ai-list li::before {
-    content: "✓";
-    color: var(--green);
-    margin-right: 9px;
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
 }
 
-.report-btn {
-    width: 100%;
-    margin-top: 16px;
-    border: 1px solid #375275;
-    background: transparent;
-    color: #cce1ff;
-    border-radius: 7px;
-    padding: 11px;
+.menu-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:12px 13px;
+
+    border-radius:9px;
+
+    color:#c1cedb;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    transition:.2s;
 }
 
-/* FORM */
-
-.parameters {
-    grid-column: 1 / 3;
+.menu-item:hover{
+    background:#0c1d31;
+    color:white;
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 13px;
+.menu-item.active{
+    color:white;
+
+    background:
+        linear-gradient(90deg,#3141bb,#147df4);
+
+    box-shadow:
+        0 8px 25px rgba(30,90,255,.2);
 }
 
-.field {
-    position: relative;
+.sidebar-bottom{
+    margin-top:auto;
 }
 
-.field label {
-    display: block;
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 6px;
+.session-card{
+    border:1px solid var(--border);
+
+    background:#081424;
+
+    padding:15px;
+
+    border-radius:10px;
 }
 
-input, select {
-    width: 100%;
-    background: #081727;
-    color: white;
-    border: 1px solid #284560;
-    border-radius: 7px;
-    padding: 12px 13px;
-    outline: none;
+.session-title{
+    font-size:13px;
+
+    margin-bottom:12px;
+}
+
+.session-row{
+    display:flex;
+    justify-content:space-between;
+
+    margin:12px 0;
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.session-row b{
+    color:white;
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main{
+    margin-left:230px;
+    width:calc(100% - 230px);
+}
+
+.topbar{
+    height:58px;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+
+    padding:0 26px;
+}
+
+.online{
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    border:1px solid #25415c;
+
+    background:#07182a;
+
+    color:#64eca3;
+
+    font-size:12px;
+}
+
+.online-dot{
+    width:8px;
+    height:8px;
+
+    display:inline-block;
+
+    background:#20da86;
+
+    border-radius:50%;
+
+    margin-right:8px;
+
+    box-shadow:
+        0 0 10px #20da86;
+}
+
+.content{
+    max-width:1650px;
+
+    margin:auto;
+
+    padding:25px 26px 40px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.page-heading{
+    margin-bottom:22px;
+}
+
+.page-heading h1{
+    font-size:29px;
+
+    margin-bottom:7px;
+}
+
+.page-heading p{
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+/* =========================================
+   GENERAL CARDS
+========================================= */
+
+.card{
+    background:
+        linear-gradient(145deg,#0b1929,#081321);
+
+    border:1px solid var(--border);
+
+    border-radius:11px;
+
+    padding:20px;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.02);
+}
+
+.card-title{
+    font-size:13px;
+
+    margin-bottom:14px;
+}
+
+.big{
+    font-size:27px;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
+}
+
+.small{
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+.green{color:var(--green);}
+.red{color:var(--red);}
+.yellow{color:var(--yellow);}
+.blue{color:#4ea2ff;}
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+.heading-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:20px;
+}
+
+.heading-row h1{
+    font-size:28px;
+}
+
+.heading-row p{
+    margin-top:7px;
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+#lastAnalysis{
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-top:8px;
+}
+
+.kpis{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:14px;
+
+    margin-bottom:16px;
+}
+
+.metric-icon{
+    float:right;
+
+    width:48px;
+    height:48px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    border:1px solid currentColor;
+
+    font-size:21px;
+}
+
+.dashboard-grid{
+    display:grid;
+
+    grid-template-columns:
+        340px 1fr 360px;
+
+    gap:14px;
+
+    align-items:start;
+}
+
+.section-title{
+    font-size:14px;
+
+    margin-bottom:17px;
+}
+
+/* =========================================
+   GAUGE
+========================================= */
+
+.gauge-wrap{
+    width:255px;
+    height:135px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    margin:15px auto 0;
+}
+
+.gauge-ring{
+    width:255px;
+    height:255px;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    background:
+        conic-gradient(
+            from 270deg,
+            #21db70 0deg,
+            #efdc2c 55deg,
+            #ff9b1c 110deg,
+            #ff414d 180deg,
+            #172436 180deg
+        );
+}
+
+.gauge-inner{
+    width:190px;
+    height:190px;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    left:32px;
+    top:32px;
+
+    background:#091626;
+}
+
+.gauge-number{
+    text-align:center;
+
+    font-size:37px;
+
+    font-weight:bold;
+
+    margin-top:8px;
+}
+
+.gauge-label{
+    text-align:center;
+
+    font-size:12px;
+
+    color:var(--muted);
+}
+
+.risk-message{
+    margin-top:17px;
+
+    border:1px solid var(--border);
+
+    border-radius:8px;
+
+    padding:14px;
+
+    color:#afbdca;
+
+    background:#071321;
+
+    line-height:1.6;
+
+    font-size:12px;
+}
+
+/* =========================================
+   GRAPH
+========================================= */
+
+.chart-area{
+    height:300px;
+}
+
+canvas{
+    width:100% !important;
+    height:100% !important;
+}
+
+/* =========================================
+   AI PANEL
+========================================= */
+
+.ai-brain{
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    margin:auto;
+
+    display:grid;
+    place-items:center;
+
+    font-size:43px;
+
+    background:
+        radial-gradient(circle,rgba(95,70,255,.28),transparent 65%);
+
+    text-shadow:
+        0 0 26px #6b4cff;
+}
+
+.ai-action{
+    margin:12px 0;
+
+    text-align:center;
+
+    font-size:19px;
+
+    font-weight:bold;
+}
+
+.ai-copy{
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+.ai-list{
+    margin-top:15px;
+
+    list-style:none;
+}
+
+.ai-list li{
+    margin:9px 0;
+
+    font-size:12px;
+
+    color:#c1cedb;
+}
+
+.ai-list li:before{
+    content:"✓";
+
+    color:var(--green);
+
+    margin-right:8px;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.parameters{
+    grid-column:1 / 3;
+}
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:13px;
+}
+
+.field label{
+    display:block;
+
+    margin-bottom:6px;
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+input,
+select{
+    width:100%;
+
+    padding:12px;
+
+    border-radius:7px;
+
+    border:1px solid #284861;
+
+    background:#081727;
+
+    color:white;
+
+    outline:none;
 }
 
 input:focus,
-select:focus {
-    border-color: #347cff;
-    box-shadow: 0 0 0 2px rgba(52,124,255,.08);
+select:focus{
+    border-color:#367cff;
 }
 
-.analyze-btn {
-    grid-column: 2 / 3;
-    border: none;
-    color: white;
-    background: linear-gradient(90deg, #6735d7, #1684ff);
-    padding: 13px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: .2s;
+.analyze-btn{
+    grid-column:2 / 3;
+
+    border:0;
+
+    padding:13px;
+
+    border-radius:8px;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    background:
+        linear-gradient(90deg,#6335d9,#1684ff);
 }
 
-.analyze-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 25px rgba(65,91,255,.25);
+.analyze-btn:hover{
+    box-shadow:
+        0 8px 25px rgba(55,80,255,.25);
 }
 
-.analyze-btn:disabled {
-    opacity: .6;
-    cursor: wait;
+/* =========================================
+   ALERTS
+========================================= */
+
+.alert-card{
+    grid-column:3;
 }
 
-/* ALERTS */
+.alert-row{
+    padding:11px 0;
 
-.alert-card {
-    grid-column: 3;
+    border-bottom:
+        1px solid #162a3e;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:12px;
 }
 
-.alert-row {
-    border-bottom: 1px solid #152a3e;
-    padding: 11px 0;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    font-size: 12px;
+.alert-row:last-child{
+    border-bottom:0;
 }
 
-.alert-row:last-child {
-    border: 0;
+/* =========================================
+   ANALYZE PAGE
+========================================= */
+
+.analyze-layout{
+    display:grid;
+
+    grid-template-columns:
+        1fr 430px;
+
+    gap:16px;
 }
 
-.alert-icon {
-    font-size: 17px;
+.analyze-main{
+    padding:25px;
 }
 
-.footer {
-    text-align: center;
-    color: #526a80;
-    font-size: 11px;
-    padding: 25px 0 5px;
+.analyze-title{
+    font-size:20px;
+
+    margin-bottom:6px;
 }
 
-/* RESPONSIVE */
+.analyze-sub{
+    color:var(--muted);
 
-@media(max-width:1200px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr 1fr;
+    font-size:12px;
+
+    margin-bottom:22px;
+}
+
+.large-form{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:16px;
+}
+
+.full-btn{
+    grid-column:1 / 3;
+
+    padding:14px;
+
+    border:0;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:bold;
+
+    background:
+        linear-gradient(90deg,#6237df,#1484ff);
+}
+
+.live-result{
+    min-height:330px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    text-align:center;
+}
+
+.result-prob{
+    font-size:50px;
+
+    font-weight:bold;
+
+    margin:15px 0;
+}
+
+.result-risk{
+    font-size:24px;
+
+    font-weight:bold;
+}
+
+/* =========================================
+   HISTORY
+========================================= */
+
+.history-toolbar{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:14px;
+}
+
+.clear-btn{
+    background:transparent;
+
+    color:#ff6670;
+
+    border:1px solid #80404a;
+
+    border-radius:7px;
+
+    padding:8px 13px;
+
+    cursor:pointer;
+}
+
+.table-wrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:800px;
+}
+
+th,
+td{
+    padding:13px;
+
+    border-bottom:
+        1px solid #173047;
+
+    text-align:left;
+
+    font-size:12px;
+}
+
+th{
+    color:#9aafc3;
+}
+
+td{
+    color:#d7e2ed;
+}
+
+.risk-badge{
+    display:inline-block;
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+
+    font-size:11px;
+}
+
+/* =========================================
+   INTELLIGENCE
+========================================= */
+
+.intelligence-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+}
+
+.intel-value{
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin:10px 0;
+}
+
+.intel-description{
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+/* =========================================
+   SETTINGS
+========================================= */
+
+.settings-layout{
+    max-width:750px;
+
+    display:grid;
+
+    gap:15px;
+}
+
+.setting-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:25px;
+
+    align-items:center;
+}
+
+.setting-info h3{
+    font-size:14px;
+
+    margin-bottom:5px;
+}
+
+.setting-info p{
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.setting-input{
+    width:120px;
+}
+
+.save-settings{
+    border:0;
+
+    padding:11px 18px;
+
+    border-radius:7px;
+
+    color:white;
+
+    background:#287cff;
+
+    cursor:pointer;
+}
+
+/* =========================================
+   ABOUT
+========================================= */
+
+.about-grid{
+    display:grid;
+
+    grid-template-columns:
+        1.2fr .8fr;
+
+    gap:15px;
+}
+
+.tech-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:10px;
+
+    margin-top:18px;
+}
+
+.tech{
+    border:1px solid #1c3d58;
+
+    background:#071523;
+
+    padding:13px;
+
+    border-radius:8px;
+
+    font-size:12px;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer{
+    padding:25px 0 5px;
+
+    text-align:center;
+
+    color:#526a80;
+
+    font-size:11px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:1200px){
+
+    .dashboard-grid{
+        grid-template-columns:1fr 1fr;
     }
 
     .parameters,
-    .alert-card {
-        grid-column: auto;
+    .alert-card{
+        grid-column:auto;
     }
 
-    .ai-card {
-        grid-column: span 2;
+    .ai-card{
+        grid-column:span 2;
+    }
+
+    .analyze-layout{
+        grid-template-columns:1fr;
     }
 }
 
-@media(max-width:900px) {
-    .sidebar {
-        display: none;
+@media(max-width:900px){
+
+    .sidebar{
+        display:none;
     }
 
-    .main {
-        margin-left: 0;
-        width: 100%;
+    .main{
+        margin-left:0;
+        width:100%;
     }
 
-    .kpis {
-        grid-template-columns: 1fr 1fr;
+    .kpis{
+        grid-template-columns:1fr 1fr;
     }
 
-    .dashboard-grid {
-        grid-template-columns: 1fr;
+    .dashboard-grid,
+    .intelligence-grid,
+    .about-grid{
+        grid-template-columns:1fr;
     }
 
     .parameters,
     .alert-card,
-    .ai-card {
-        grid-column: 1;
+    .ai-card{
+        grid-column:1;
     }
 
-    .form-grid {
-        grid-template-columns: 1fr;
+    .form-grid,
+    .large-form{
+        grid-template-columns:1fr;
     }
 
-    .analyze-btn {
-        grid-column: 1;
+    .analyze-btn,
+    .full-btn{
+        grid-column:1;
     }
 }
 
-@media(max-width:560px) {
-    .kpis {
-        grid-template-columns: 1fr;
-    }
+@media(max-width:550px){
 
-    .heading {
-        flex-direction: column;
+    .kpis{
+        grid-template-columns:1fr;
     }
 }
+
 </style>
 </head>
 
@@ -584,575 +1011,1683 @@ select:focus {
 
 <div class="app">
 
-    <aside class="sidebar">
+<!-- =========================================
+     SIDEBAR
+========================================= -->
 
-        <div class="logo">
-            <div class="logo-icon">🧠</div>
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🧠
+        </div>
+
+        <div>
+
+            <h2>IDIP</h2>
+
+            <p>
+                Industrial Decision<br>
+                Intelligence Platform
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <nav class="menu">
+
+        <div
+            class="menu-item active"
+            data-page="dashboard"
+        >
+            ▦ Dashboard
+        </div>
+
+        <div
+            class="menu-item"
+            data-page="analyze"
+        >
+            ◉ Analyze Machine
+        </div>
+
+        <div
+            class="menu-item"
+            data-page="history"
+        >
+            ▤ History & Reports
+        </div>
+
+        <div
+            class="menu-item"
+            data-page="intelligence"
+        >
+            ⚙ Machine Intelligence
+        </div>
+
+        <div
+            class="menu-item"
+            data-page="alerts"
+        >
+            ⚠ Alerts
+        </div>
+
+        <div
+            class="menu-item"
+            data-page="settings"
+        >
+            ⚙ Settings
+        </div>
+
+        <div
+            class="menu-item"
+            data-page="about"
+        >
+            ⓘ About
+        </div>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <div class="session-card">
+
+            <div class="session-title">
+                Session Overview
+            </div>
+
+            <div class="session-row">
+
+                <span>
+                    Machines Analyzed
+                </span>
+
+                <b id="machinesAnalyzed">
+                    0
+                </b>
+
+            </div>
+
+            <div class="session-row">
+
+                <span>
+                    Current Alerts
+                </span>
+
+                <b
+                    id="activeAlerts"
+                    class="red"
+                >
+                    0
+                </b>
+
+            </div>
+
+            <div class="session-row">
+
+                <span>
+                    Health Score
+                </span>
+
+                <b
+                    id="healthScore"
+                    class="green"
+                >
+                    100%
+                </b>
+
+            </div>
+
+            <div class="session-row">
+
+                <span>
+                    AI Model
+                </span>
+
+                <b class="blue">
+                    Online
+                </b>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="main">
+
+<div class="topbar">
+
+    <div class="online">
+
+        <span class="online-dot"></span>
+
+        <span id="systemStatus">
+            System Online
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="content">
+
+
+<!-- =========================================
+     DASHBOARD PAGE
+========================================= -->
+
+<section
+    id="page-dashboard"
+    class="page active"
+>
+
+    <div class="heading-row">
+
+        <div>
+
+            <h1>
+                AI-Powered Machine Health Monitoring
+            </h1>
+
+            <p>
+                Predict failures before they happen.
+                Reduce downtime and improve maintenance decisions.
+            </p>
+
+        </div>
+
+        <div id="lastAnalysis">
+            Waiting for analysis
+        </div>
+
+    </div>
+
+
+    <div class="kpis">
+
+        <div class="card">
+
+            <span class="metric-icon red">
+                ↗
+            </span>
+
+            <div class="card-title">
+                Failure Probability
+            </div>
+
+            <div
+                id="failureProbabilityTop"
+                class="big green"
+            >
+                0.00%
+            </div>
+
+            <div
+                id="failureText"
+                class="small"
+            >
+                Machine currently stable
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <span class="metric-icon yellow">
+                ⚠
+            </span>
+
+            <div class="card-title">
+                Risk Level
+            </div>
+
+            <div
+                id="riskTop"
+                class="big green"
+            >
+                LOW
+            </div>
+
+            <div class="small">
+                AI risk classification
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <span class="metric-icon yellow">
+                ⚙
+            </span>
+
+            <div class="card-title">
+                Machine Status
+            </div>
+
+            <div
+                id="machineStatus"
+                class="big green"
+            >
+                NORMAL
+            </div>
+
+            <div
+                id="machineStatusText"
+                class="small"
+            >
+                Operating normally
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <span class="metric-icon red">
+                ☑
+            </span>
+
+            <div class="card-title">
+                Recommended Action
+            </div>
+
+            <div
+                id="actionTop"
+                class="big green"
+            >
+                CONTINUE
+            </div>
+
+            <div class="small">
+                AI maintenance decision
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+
+        <!-- GAUGE -->
+
+        <div class="card">
+
+            <div class="section-title">
+                Failure Probability
+            </div>
+
+            <div class="gauge-wrap">
+
+                <div class="gauge-ring"></div>
+                <div class="gauge-inner"></div>
+
+            </div>
+
+            <div
+                id="gaugeNumber"
+                class="gauge-number green"
+            >
+                0.00%
+            </div>
+
+            <div class="gauge-label">
+                Probability of Failure
+            </div>
+
+            <div
+                id="riskMessage"
+                class="risk-message"
+            >
+                Run an analysis to evaluate
+                the machine condition.
+            </div>
+
+        </div>
+
+
+        <!-- GRAPH -->
+
+        <div class="card">
+
+            <div class="section-title">
+                Machine Parameters Intelligence
+            </div>
+
+            <div class="chart-area">
+
+                <canvas id="trendChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI -->
+
+        <div class="card ai-card">
+
+            <div class="section-title">
+                AI Recommendation
+            </div>
+
+            <div class="ai-brain">
+                🧠
+            </div>
+
+            <div
+                id="aiAction"
+                class="ai-action green"
+            >
+                System Ready
+            </div>
+
+            <div
+                id="aiDescription"
+                class="ai-copy"
+            >
+                Enter machine parameters and run
+                the AI analysis.
+            </div>
+
+            <ul
+                class="ai-list"
+                id="recommendationList"
+            >
+
+                <li>
+                    Monitor machine operating conditions
+                </li>
+
+                <li>
+                    Analyze temperature and speed
+                </li>
+
+                <li>
+                    Evaluate tool wear
+                </li>
+
+                <li>
+                    Generate maintenance recommendation
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- PARAMETERS -->
+
+        <div class="card parameters">
+
+            <div class="section-title">
+                Machine Parameters
+            </div>
+
+            <div class="form-grid">
+
+                <div class="field">
+
+                    <label>
+                        Machine Type
+                    </label>
+
+                    <select id="type">
+
+                        <option value="L">
+                            L
+                        </option>
+
+                        <option value="M">
+                            M
+                        </option>
+
+                        <option value="H">
+                            H
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Air Temperature (K)
+                    </label>
+
+                    <input
+                        id="airTemp"
+                        type="number"
+                        value="300"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Process Temperature (K)
+                    </label>
+
+                    <input
+                        id="processTemp"
+                        type="number"
+                        value="310"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Rotational Speed (rpm)
+                    </label>
+
+                    <input
+                        id="speed"
+                        type="number"
+                        value="1500"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Torque (Nm)
+                    </label>
+
+                    <input
+                        id="torque"
+                        type="number"
+                        value="50"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Tool Wear (min)
+                    </label>
+
+                    <input
+                        id="toolWear"
+                        type="number"
+                        value="150"
+                    >
+
+                </div>
+
+
+                <button
+                    class="analyze-btn"
+                    onclick="analyzeMachine()"
+                >
+                    🧠 Analyze Machine
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALERTS -->
+
+        <div class="card alert-card">
+
+            <div class="section-title">
+                Recent Intelligence
+            </div>
+
+            <div id="dashboardAlerts">
+
+                <div class="alert-row">
+
+                    <span class="green">
+                        ✓
+                    </span>
+
+                    <span>
+                        System ready for machine analysis
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     ANALYZE MACHINE PAGE
+========================================= -->
+
+<section
+    id="page-analyze"
+    class="page"
+>
+
+    <div class="page-heading">
+
+        <h1>
+            Analyze Machine
+        </h1>
+
+        <p>
+            Enter current machine operating conditions
+            and run the predictive maintenance model.
+        </p>
+
+    </div>
+
+
+    <div class="analyze-layout">
+
+        <div class="card analyze-main">
+
+            <div class="analyze-title">
+                Machine Operating Parameters
+            </div>
+
+            <div class="analyze-sub">
+                Values are sent directly to the
+                machine learning prediction API.
+            </div>
+
+
+            <div class="large-form">
+
+                <div class="field">
+
+                    <label>
+                        Machine Type
+                    </label>
+
+                    <select id="type2">
+
+                        <option value="L">
+                            L
+                        </option>
+
+                        <option value="M">
+                            M
+                        </option>
+
+                        <option value="H">
+                            H
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Air Temperature (K)
+                    </label>
+
+                    <input
+                        id="airTemp2"
+                        type="number"
+                        value="300"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Process Temperature (K)
+                    </label>
+
+                    <input
+                        id="processTemp2"
+                        type="number"
+                        value="310"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Rotational Speed (rpm)
+                    </label>
+
+                    <input
+                        id="speed2"
+                        type="number"
+                        value="1500"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Torque (Nm)
+                    </label>
+
+                    <input
+                        id="torque2"
+                        type="number"
+                        value="50"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Tool Wear (min)
+                    </label>
+
+                    <input
+                        id="toolWear2"
+                        type="number"
+                        value="150"
+                    >
+
+                </div>
+
+
+                <button
+                    class="full-btn"
+                    onclick="analyzeMachineFromPage()"
+                >
+                    Run AI Machine Analysis
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="card live-result">
+
+            <div class="small">
+                Latest Prediction
+            </div>
+
+            <div
+                id="analyzePageProbability"
+                class="result-prob green"
+            >
+                0.00%
+            </div>
+
+            <div
+                id="analyzePageRisk"
+                class="result-risk green"
+            >
+                LOW RISK
+            </div>
+
+            <div
+                id="analyzePageAction"
+                class="ai-copy"
+                style="margin-top:18px;"
+            >
+                Waiting for machine analysis.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     HISTORY PAGE
+========================================= -->
+
+<section
+    id="page-history"
+    class="page"
+>
+
+    <div class="page-heading">
+
+        <h1>
+            History & Reports
+        </h1>
+
+        <p>
+            Review machine analyses performed
+            from this browser.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="history-toolbar">
+
             <div>
-                <h2>IDIP</h2>
-                <p>Industrial Decision<br>Intelligence Platform</p>
-            </div>
-        </div>
 
-        <div class="menu">
-            <div class="menu-item active">▦ Dashboard</div>
-            <div class="menu-item">◉ Analyze Machine</div>
-            <div class="menu-item">▤ History & Reports</div>
-            <div class="menu-item">⚙ Machine Intelligence</div>
-            <div class="menu-item">⚠ Alerts</div>
-            <div class="menu-item">⚙ Settings</div>
-            <div class="menu-item">ⓘ About</div>
-        </div>
-
-        <div class="sidebar-bottom">
-            <div class="overview">
-                <div class="overview-title">Session Overview</div>
-
-                <div class="over-row">
-                    <span>Machines Analyzed</span>
-                    <b id="machinesAnalyzed">0</b>
+                <div class="section-title">
+                    Analysis History
                 </div>
 
-                <div class="over-row">
-                    <span>Current Alerts</span>
-                    <b id="activeAlerts" class="red">0</b>
+                <div class="small">
+                    Stored locally in your browser.
                 </div>
 
-                <div class="over-row">
-                    <span>Health Score</span>
-                    <b id="healthScore" class="green">100%</b>
-                </div>
-
-                <div class="over-row">
-                    <span>AI Model</span>
-                    <b class="blue">Online</b>
-                </div>
-            </div>
-        </div>
-
-    </aside>
-
-
-    <main class="main">
-
-        <div class="topbar">
-            <div class="online">
-                <span class="online-dot"></span>
-                <span id="systemStatus">System Online</span>
-            </div>
-        </div>
-
-        <div class="content">
-
-            <div class="heading">
-                <div>
-                    <h1>AI-Powered Machine Health Monitoring</h1>
-                    <p>Predict failures before they happen. Reduce downtime and improve maintenance decisions.</p>
-                </div>
-
-                <div id="lastAnalysis">
-                    Waiting for analysis
-                </div>
             </div>
 
 
-            <section class="kpis">
+            <button
+                class="clear-btn"
+                onclick="clearHistory()"
+            >
+                Clear History
+            </button>
 
-                <div class="card">
-                    <span class="metric-icon red">↗</span>
-                    <div class="card-title">Failure Probability</div>
-                    <div id="failureProbabilityTop" class="big green">0%</div>
-                    <div id="failureText" class="small">
-                        Machine currently stable
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="metric-icon yellow">⚠</span>
-                    <div class="card-title">Risk Level</div>
-                    <div id="riskTop" class="big green">LOW</div>
-                    <div class="small">AI risk classification</div>
-                </div>
-
-                <div class="card">
-                    <span class="metric-icon yellow">⚙</span>
-                    <div class="card-title">Machine Status</div>
-                    <div id="machineStatus" class="big green">NORMAL</div>
-                    <div id="machineStatusText" class="small">
-                        Operating normally
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="metric-icon red">☑</span>
-                    <div class="card-title">Recommended Action</div>
-                    <div id="actionTop" class="big green">MONITOR</div>
-                    <div class="small">AI maintenance decision</div>
-                </div>
-
-            </section>
+        </div>
 
 
-            <section class="dashboard-grid">
+        <div class="table-wrap">
 
-                <!-- GAUGE -->
+            <table>
 
-                <div class="card">
-                    <div class="section-title">Failure Probability</div>
+                <thead>
 
-                    <div class="gauge">
-                        <div class="gauge-ring"></div>
-                        <div class="gauge-inner"></div>
-                    </div>
+                    <tr>
 
-                    <div id="gaugeNumber" class="gauge-number">0%</div>
-                    <div class="gauge-label">Probability of Failure</div>
+                        <th>
+                            Date
+                        </th>
 
-                    <div class="gauge-scale">
-                        <span class="green">0%</span>
-                        <span class="red">100%</span>
-                    </div>
+                        <th>
+                            Type
+                        </th>
 
-                    <div id="riskMessage" class="risk-message">
-                        Run an analysis to evaluate the machine condition.
-                    </div>
-                </div>
+                        <th>
+                            Failure Probability
+                        </th>
 
+                        <th>
+                            Risk
+                        </th>
 
-                <!-- GRAPH -->
+                        <th>
+                            Recommended Action
+                        </th>
 
-                <div class="card">
-                    <div class="section-title">
-                        Machine Parameters Intelligence
-                    </div>
+                    </tr>
 
-                    <div class="legend">
-                        <span><i class="dot dot1"></i>Air Temp</span>
-                        <span><i class="dot dot2"></i>Process Temp</span>
-                        <span><i class="dot dot3"></i>Speed</span>
-                        <span><i class="dot dot4"></i>Torque</span>
-                        <span><i class="dot dot5"></i>Tool Wear</span>
-                    </div>
+                </thead>
 
-                    <div class="chart-area">
-                        <canvas id="trendChart"></canvas>
-                    </div>
-                </div>
+                <tbody id="historyBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-                <!-- AI -->
+<!-- =========================================
+     MACHINE INTELLIGENCE
+========================================= -->
 
-                <div class="card ai-card">
+<section
+    id="page-intelligence"
+    class="page"
+>
 
-                    <div class="section-title">AI Recommendation</div>
+    <div class="page-heading">
 
-                    <div class="ai-head">
-                        <div class="ai-brain">🧠</div>
-                    </div>
+        <h1>
+            Machine Intelligence
+        </h1>
 
-                    <div id="aiAction" class="ai-action green">
-                        System Ready
-                    </div>
+        <p>
+            Understand how each operating parameter
+            contributes to machine condition.
+        </p>
 
-                    <div id="aiDescription" class="ai-copy">
-                        Enter the machine parameters and run the AI analysis.
-                    </div>
-
-                    <ul class="ai-list" id="recommendationList">
-                        <li>Monitor machine operating conditions</li>
-                        <li>Analyze temperature and speed</li>
-                        <li>Evaluate tool wear</li>
-                        <li>Generate maintenance recommendation</li>
-                    </ul>
-
-                    <button class="report-btn">
-                        AI Decision Intelligence
-                    </button>
-
-                </div>
+    </div>
 
 
-                <!-- PARAMETERS -->
-
-                <div class="card parameters">
-
-                    <div class="section-title">Machine Parameters</div>
-
-                    <div class="form-grid">
-
-                        <div class="field">
-                            <label>Machine Type</label>
-                            <select id="type">
-                                <option value="L">L</option>
-                                <option value="M">M</option>
-                                <option value="H">H</option>
-                            </select>
-                        </div>
-
-                        <div class="field">
-                            <label>Air Temperature (K)</label>
-                            <input id="airTemp" type="number" value="300">
-                        </div>
-
-                        <div class="field">
-                            <label>Process Temperature (K)</label>
-                            <input id="processTemp" type="number" value="310">
-                        </div>
-
-                        <div class="field">
-                            <label>Rotational Speed (rpm)</label>
-                            <input id="speed" type="number" value="1500">
-                        </div>
-
-                        <div class="field">
-                            <label>Torque (Nm)</label>
-                            <input id="torque" type="number" value="50">
-                        </div>
-
-                        <div class="field">
-                            <label>Tool Wear (min)</label>
-                            <input id="toolWear" type="number" value="150">
-                        </div>
-
-                        <button
-                            id="analyzeButton"
-                            class="analyze-btn"
-                            onclick="analyzeMachine()"
-                        >
-                            🧠 Analyze Machine
-                        </button>
-
-                    </div>
-
-                </div>
+    <div class="intelligence-grid">
 
 
-                <!-- ALERTS -->
+        <div class="card">
 
-                <div class="card alert-card">
+            <div class="card-title">
+                🌡 Air Temperature
+            </div>
 
-                    <div class="section-title">Recent Intelligence</div>
+            <div
+                class="intel-value blue"
+                id="intelAir"
+            >
+                300 K
+            </div>
 
-                    <div id="alertsContainer">
-
-                        <div class="alert-row">
-                            <span class="alert-icon blue">●</span>
-                            <span>System ready for machine analysis</span>
-                        </div>
-
-                        <div class="alert-row">
-                            <span class="alert-icon green">✓</span>
-                            <span>Machine learning model connected</span>
-                        </div>
-
-                        <div class="alert-row">
-                            <span class="alert-icon green">✓</span>
-                            <span>Decision engine operational</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <div class="footer">
-                Industrial Decision Intelligence Platform • AI-Powered Predictive Maintenance
+            <div class="intel-description">
+                Represents the surrounding environmental
+                temperature affecting machine cooling.
             </div>
 
         </div>
 
-    </main>
+
+        <div class="card">
+
+            <div class="card-title">
+                ♨ Process Temperature
+            </div>
+
+            <div
+                class="intel-value yellow"
+                id="intelProcess"
+            >
+                310 K
+            </div>
+
+            <div class="intel-description">
+                Higher process temperatures can contribute
+                to increased thermal stress.
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                ⚙ Rotational Speed
+            </div>
+
+            <div
+                class="intel-value green"
+                id="intelSpeed"
+            >
+                1500 rpm
+            </div>
+
+            <div class="intel-description">
+                Describes machine rotational operating speed
+                and helps identify abnormal operating states.
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                🔩 Torque
+            </div>
+
+            <div
+                class="intel-value yellow"
+                id="intelTorque"
+            >
+                50 Nm
+            </div>
+
+            <div class="intel-description">
+                High torque combined with low rotational speed
+                may indicate excessive mechanical load.
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                🛠 Tool Wear
+            </div>
+
+            <div
+                class="intel-value red"
+                id="intelWear"
+            >
+                150 min
+            </div>
+
+            <div class="intel-description">
+                Tool wear is a major maintenance indicator.
+                High wear values can increase failure risk.
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                🧠 AI Interpretation
+            </div>
+
+            <div
+                class="intel-value green"
+                id="intelRisk"
+            >
+                LOW
+            </div>
+
+            <div
+                class="intel-description"
+                id="intelSummary"
+            >
+                Run an analysis to generate
+                machine intelligence.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     ALERTS PAGE
+========================================= -->
+
+<section
+    id="page-alerts"
+    class="page"
+>
+
+    <div class="page-heading">
+
+        <h1>
+            Alerts
+        </h1>
+
+        <p>
+            Operational warnings generated
+            from the latest machine analysis.
+        </p>
+
+    </div>
+
+
+    <div
+        class="card"
+        id="alertsPageContainer"
+    >
+
+        <div class="alert-row">
+
+            <span class="green">
+                ✓
+            </span>
+
+            <span>
+                No active machine alerts.
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     SETTINGS PAGE
+========================================= -->
+
+<section
+    id="page-settings"
+    class="page"
+>
+
+    <div class="page-heading">
+
+        <h1>
+            Settings
+        </h1>
+
+        <p>
+            Configure dashboard display thresholds.
+        </p>
+
+    </div>
+
+
+    <div class="settings-layout">
+
+
+        <div class="card setting-row">
+
+            <div class="setting-info">
+
+                <h3>
+                    Caution Threshold
+                </h3>
+
+                <p>
+                    Probability at which the machine
+                    is displayed as Caution.
+                </p>
+
+            </div>
+
+            <input
+                id="mediumThreshold"
+                class="setting-input"
+                type="number"
+                value="30"
+            >
+
+        </div>
+
+
+        <div class="card setting-row">
+
+            <div class="setting-info">
+
+                <h3>
+                    Critical Threshold
+                </h3>
+
+                <p>
+                    Probability at which immediate
+                    inspection is recommended.
+                </p>
+
+            </div>
+
+            <input
+                id="criticalThreshold"
+                class="setting-input"
+                type="number"
+                value="70"
+            >
+
+        </div>
+
+
+        <button
+            class="save-settings"
+            onclick="saveSettings()"
+        >
+            Save Settings
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     ABOUT PAGE
+========================================= -->
+
+<section
+    id="page-about"
+    class="page"
+>
+
+    <div class="page-heading">
+
+        <h1>
+            About IDIP
+        </h1>
+
+        <p>
+            Industrial Decision Intelligence Platform
+        </p>
+
+    </div>
+
+
+    <div class="about-grid">
+
+
+        <div class="card">
+
+            <div class="section-title">
+                Project Purpose
+            </div>
+
+            <div class="ai-copy">
+
+                IDIP is an AI-powered predictive maintenance
+                platform designed to evaluate industrial machine
+                operating conditions and estimate machine failure risk.
+
+                <br><br>
+
+                The platform transforms machine sensor data into
+                actionable maintenance intelligence by combining
+                machine learning, risk classification and
+                maintenance recommendations.
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="section-title">
+                Technology Stack
+            </div>
+
+            <div class="tech-grid">
+
+                <div class="tech">
+                    🐍 Python
+                </div>
+
+                <div class="tech">
+                    🤖 Scikit-learn
+                </div>
+
+                <div class="tech">
+                    🌐 Flask API
+                </div>
+
+                <div class="tech">
+                    🧠 Machine Learning
+                </div>
+
+                <div class="tech">
+                    💻 JavaScript
+                </div>
+
+                <div class="tech">
+                    📊 Data Visualization
+                </div>
+
+                <div class="tech">
+                    🐙 GitHub
+                </div>
+
+                <div class="tech">
+                    ⚙ Predictive Maintenance
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="footer">
+
+    Industrial Decision Intelligence Platform
+    • AI-Powered Predictive Maintenance
+
+</div>
+
+</div>
+
+</main>
 
 </div>
 
 
 <script>
 
-/*
-================================================
-BACKEND
-================================================
-إذا تغير رابط ngrok مستقبلًا، غيري هذا السطر فقط.
-*/
+/* =========================================
+   BACKEND API
+
+   IMPORTANT:
+   إذا تغير رابط ngrok، غيري هذا السطر فقط
+========================================= */
 
 const API_BASE =
-    "https://many-grip-extenuate.ngrok-free.dev";
-
-let analysisCount = 0;
+"https://many-grip-extenuate.ngrok-free.dev";
 
 
-/* =============================================
-   CANVAS GRAPH
-============================================= */
+/* =========================================
+   SETTINGS
+========================================= */
 
-const canvas = document.getElementById("trendChart");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * devicePixelRatio;
-    canvas.height = rect.height * devicePixelRatio;
-    ctx.setTransform(
-        devicePixelRatio,
-        0,
-        0,
-        devicePixelRatio,
-        0,
-        0
+let mediumThreshold =
+    Number(
+        localStorage.getItem(
+            "mediumThreshold"
+        ) || 30
     );
-}
 
-function drawChart(values = [300,310,1500,50,150]) {
+let criticalThreshold =
+    Number(
+        localStorage.getItem(
+            "criticalThreshold"
+        ) || 70
+    );
 
-    resizeCanvas();
 
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
+document.getElementById(
+    "mediumThreshold"
+).value =
+    mediumThreshold;
 
-    ctx.clearRect(0,0,width,height);
 
-    const margin = 35;
-    const graphW = width - margin * 2;
-    const graphH = height - margin * 2;
+document.getElementById(
+    "criticalThreshold"
+).value =
+    criticalThreshold;
 
-    /* Grid */
 
-    ctx.strokeStyle = "#19334a";
-    ctx.lineWidth = 1;
+/* =========================================
+   NAVIGATION
+========================================= */
 
-    for(let i=0; i<=5; i++) {
+const menuItems =
+    document.querySelectorAll(
+        ".menu-item"
+    );
 
-        const y = margin + (graphH/5)*i;
+const pages =
+    document.querySelectorAll(
+        ".page"
+    );
 
-        ctx.beginPath();
-        ctx.moveTo(margin,y);
-        ctx.lineTo(width-margin,y);
-        ctx.stroke();
+
+menuItems.forEach(item => {
+
+    item.addEventListener(
+        "click",
+        () => {
+
+            menuItems.forEach(i =>
+                i.classList.remove(
+                    "active"
+                )
+            );
+
+            item.classList.add(
+                "active"
+            );
+
+
+            pages.forEach(page =>
+                page.classList.remove(
+                    "active"
+                )
+            );
+
+
+            const target =
+                item.dataset.page;
+
+
+            document.getElementById(
+                "page-" + target
+            ).classList.add(
+                "active"
+            );
+
+
+            if(target === "history"){
+                renderHistory();
+            }
+
+
+            window.scrollTo(
+                0,
+                0
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   CURRENT STATE
+========================================= */
+
+let latestMachine = {
+
+    Type:"L",
+
+    "Air temperature [K]":300,
+
+    "Process temperature [K]":310,
+
+    "Rotational speed [rpm]":1500,
+
+    "Torque [Nm]":50,
+
+    "Tool wear [min]":150
+};
+
+
+let latestProbability = 0;
+
+let latestRisk = "Low";
+
+let latestAction =
+    "Continue normal operation and monitoring.";
+
+
+/* =========================================
+   HELPER
+========================================= */
+
+function colorForRisk(risk){
+
+    const value =
+        String(risk).toLowerCase();
+
+
+    if(
+        value.includes("critical") ||
+        value.includes("high")
+    ){
+        return "red";
     }
 
 
-    const normalized = [
-        Math.min(values[0] / 350, 1),
-        Math.min(values[1] / 350, 1),
-        Math.min(values[2] / 2500, 1),
-        Math.min(values[3] / 100, 1),
-        Math.min(values[4] / 300, 1)
-    ];
-
-    const colors = [
-        "#3489ff",
-        "#a75eff",
-        "#48d76d",
-        "#ffad22",
-        "#ff4164"
-    ];
-
-    const labels = [
-        "Air Temp",
-        "Process Temp",
-        "Speed",
-        "Torque",
-        "Tool Wear"
-    ];
-
-    normalized.forEach((v,i)=>{
-
-        const x =
-            margin +
-            (graphW/(normalized.length-1))*i;
-
-        const y =
-            margin +
-            graphH -
-            v*graphH;
-
-        ctx.beginPath();
-        ctx.arc(x,y,6,0,Math.PI*2);
-
-        ctx.fillStyle = colors[i];
-        ctx.shadowColor = colors[i];
-        ctx.shadowBlur = 14;
-        ctx.fill();
-
-        ctx.shadowBlur = 0;
-
-        ctx.fillStyle = "#8fa5bb";
-        ctx.font = "11px Arial";
-        ctx.textAlign = "center";
-
-        ctx.fillText(
-            labels[i],
-            x,
-            height - 9
-        );
-
-        ctx.fillStyle = "#ffffff";
-
-        ctx.fillText(
-            values[i],
-            x,
-            y - 13
-        );
-
-    });
-
-
-    ctx.beginPath();
-
-    normalized.forEach((v,i)=>{
-
-        const x =
-            margin +
-            (graphW/(normalized.length-1))*i;
-
-        const y =
-            margin +
-            graphH -
-            v*graphH;
-
-        if(i === 0)
-            ctx.moveTo(x,y);
-        else
-            ctx.lineTo(x,y);
-
-    });
-
-    ctx.strokeStyle = "#3988ff";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-}
-
-
-/* =============================================
-   COLORS
-============================================= */
-
-function removeStatusClasses(element) {
-    element.classList.remove(
-        "red",
-        "green",
-        "yellow",
-        "blue"
-    );
-}
-
-
-function statusColor(risk) {
-
-    const r = risk.toLowerCase();
-
     if(
-        r.includes("critical") ||
-        r.includes("high")
-    )
-        return "red";
-
-    if(
-        r.includes("medium") ||
-        r.includes("moderate")
-    )
+        value.includes("medium") ||
+        value.includes("moderate")
+    ){
         return "yellow";
+    }
+
 
     return "green";
 }
 
 
-/* =============================================
-   MACHINE ANALYSIS
-============================================= */
+function resetColors(element){
 
-async function analyzeMachine() {
+    element.classList.remove(
+        "green",
+        "red",
+        "yellow",
+        "blue"
+    );
 
-    const button =
-        document.getElementById("analyzeButton");
-
-    button.disabled = true;
-    button.innerText = "Analyzing with AI...";
+}
 
 
-    const machineData = {
+/* =========================================
+   READ DASHBOARD FORM
+========================================= */
 
-        "Type":
-            document.getElementById("type").value,
+function dashboardMachineData(){
+
+    return {
+
+        Type:
+            document.getElementById(
+                "type"
+            ).value,
 
         "Air temperature [K]":
             Number(
-                document.getElementById("airTemp").value
+                document.getElementById(
+                    "airTemp"
+                ).value
             ),
 
         "Process temperature [K]":
             Number(
-                document.getElementById("processTemp").value
+                document.getElementById(
+                    "processTemp"
+                ).value
             ),
 
         "Rotational speed [rpm]":
             Number(
-                document.getElementById("speed").value
+                document.getElementById(
+                    "speed"
+                ).value
             ),
 
         "Torque [Nm]":
             Number(
-                document.getElementById("torque").value
+                document.getElementById(
+                    "torque"
+                ).value
             ),
 
         "Tool wear [min]":
             Number(
-                document.getElementById("toolWear").value
+                document.getElementById(
+                    "toolWear"
+                ).value
             )
+
     };
 
+}
 
-    try {
 
-        const response = await fetch(
+/* =========================================
+   READ ANALYZE PAGE
+========================================= */
+
+function analyzePageMachineData(){
+
+    return {
+
+        Type:
+            document.getElementById(
+                "type2"
+            ).value,
+
+        "Air temperature [K]":
+            Number(
+                document.getElementById(
+                    "airTemp2"
+                ).value
+            ),
+
+        "Process temperature [K]":
+            Number(
+                document.getElementById(
+                    "processTemp2"
+                ).value
+            ),
+
+        "Rotational speed [rpm]":
+            Number(
+                document.getElementById(
+                    "speed2"
+                ).value
+            ),
+
+        "Torque [Nm]":
+            Number(
+                document.getElementById(
+                    "torque2"
+                ).value
+            ),
+
+        "Tool wear [min]":
+            Number(
+                document.getElementById(
+                    "toolWear2"
+                ).value
+            )
+
+    };
+
+}
+
+
+/* =========================================
+   API REQUEST
+========================================= */
+
+async function requestPrediction(
+    machineData
+){
+
+    const response =
+        await fetch(
+
             API_BASE + "/predict",
-            {
-                method: "POST",
 
-                headers: {
+            {
+
+                method:"POST",
+
+                headers:{
+
                     "Content-Type":
                         "application/json",
 
                     "ngrok-skip-browser-warning":
                         "true"
+
                 },
 
                 body:
-                    JSON.stringify(machineData)
+                    JSON.stringify(
+                        machineData
+                    )
+
             }
+
         );
 
 
-        if(!response.ok) {
-            throw new Error(
-                "Backend returned status " +
-                response.status
-            );
-        }
+    if(!response.ok){
+
+        throw new Error(
+            "Backend status: " +
+            response.status
+        );
+
+    }
+
+
+    return await response.json();
+
+}
+
+
+/* =========================================
+   DASHBOARD ANALYSIS
+========================================= */
+
+async function analyzeMachine(){
+
+    const machineData =
+        dashboardMachineData();
+
+
+    await runFullAnalysis(
+        machineData
+    );
+
+}
+
+
+/* =========================================
+   ANALYZE PAGE ANALYSIS
+========================================= */
+
+async function analyzeMachineFromPage(){
+
+    const machineData =
+        analyzePageMachineData();
+
+
+    await runFullAnalysis(
+        machineData
+    );
+
+}
+
+
+/* =========================================
+   FULL ANALYSIS
+========================================= */
+
+async function runFullAnalysis(
+    machineData
+){
+
+    try{
+
+        document.getElementById(
+            "systemStatus"
+        ).innerText =
+            "AI Analysis Running";
 
 
         const data =
-            await response.json();
+            await requestPrediction(
+                machineData
+            );
 
-
-        /*
-        ========================================
-        READ BACKEND RESULT
-        ========================================
-        */
 
         const probability =
             Number(
                 data.failure_probability ?? 0
             );
 
+
         const risk =
             data.risk_level || "Unknown";
+
 
         const action =
             data.recommended_action ||
             "Continue monitoring.";
+
+
+        latestMachine =
+            machineData;
+
+        latestProbability =
+            probability;
+
+        latestRisk =
+            risk;
+
+        latestAction =
+            action;
 
 
         updateDashboard(
@@ -1163,22 +2698,33 @@ async function analyzeMachine() {
         );
 
 
-        analysisCount++;
+        updateAnalyzePage(
+            probability,
+            risk,
+            action
+        );
 
-        document.getElementById(
-            "machinesAnalyzed"
-        ).innerText =
-            analysisCount;
+
+        updateIntelligence(
+            machineData,
+            probability,
+            risk
+        );
 
 
-        const now =
-            new Date();
+        updateAlerts(
+            machineData,
+            probability,
+            risk
+        );
 
-        document.getElementById(
-            "lastAnalysis"
-        ).innerText =
-            "Last Analysis: " +
-            now.toLocaleTimeString();
+
+        saveHistory(
+            machineData,
+            probability,
+            risk,
+            action
+        );
 
 
         document.getElementById(
@@ -1186,65 +2732,61 @@ async function analyzeMachine() {
         ).innerText =
             "System Online";
 
-
     }
 
-    catch(error) {
+    catch(error){
 
         console.error(error);
+
 
         document.getElementById(
             "systemStatus"
         ).innerText =
             "Backend Connection Error";
 
+
         alert(
             "Could not connect to the backend. " +
-            "Make sure Colab and ngrok are running."
+            "Make sure Google Colab and ngrok are running."
         );
 
     }
 
-    finally {
-
-        button.disabled = false;
-        button.innerText =
-            "🧠 Analyze Machine";
-
-    }
 }
 
 
-/* =============================================
-   UPDATE UI
-============================================= */
+/* =========================================
+   UPDATE DASHBOARD
+========================================= */
 
 function updateDashboard(
     probability,
     risk,
     action,
     machine
-) {
+){
 
     const color =
-        statusColor(risk);
+        colorForRisk(risk);
 
 
     const probabilityText =
         probability.toFixed(2) + "%";
 
 
-    const topProbability =
+    const p =
         document.getElementById(
             "failureProbabilityTop"
         );
 
-    topProbability.innerText =
+    p.innerText =
         probabilityText;
 
-    removeStatusClasses(topProbability);
+    resetColors(p);
 
-    topProbability.classList.add(color);
+    p.classList.add(
+        color
+    );
 
 
     const riskTop =
@@ -1253,11 +2795,13 @@ function updateDashboard(
         );
 
     riskTop.innerText =
-        risk.toUpperCase();
+        String(risk).toUpperCase();
 
-    removeStatusClasses(riskTop);
+    resetColors(riskTop);
 
-    riskTop.classList.add(color);
+    riskTop.classList.add(
+        color
+    );
 
 
     const gauge =
@@ -1268,14 +2812,12 @@ function updateDashboard(
     gauge.innerText =
         probabilityText;
 
-    removeStatusClasses(gauge);
+    resetColors(gauge);
 
-    gauge.classList.add(color);
+    gauge.classList.add(
+        color
+    );
 
-
-    /*
-    HEALTH SCORE
-    */
 
     const health =
         Math.max(
@@ -1283,166 +2825,795 @@ function updateDashboard(
             100 - probability
         );
 
+
     document.getElementById(
         "healthScore"
     ).innerText =
         health.toFixed(0) + "%";
 
 
-    /*
-    STATUS
-    */
-
     const status =
         document.getElementById(
             "machineStatus"
         );
 
-    const statusText =
-        document.getElementById(
-            "machineStatusText"
-        );
 
-
-    if(probability >= 70) {
+    if(
+        probability >=
+        criticalThreshold
+    ){
 
         status.innerText =
             "WARNING";
 
-        statusText.innerText =
-            "Performance requires attention";
-
     }
 
-    else if(probability >= 30) {
+    else if(
+        probability >=
+        mediumThreshold
+    ){
 
         status.innerText =
             "CAUTION";
 
-        statusText.innerText =
-            "Monitor operating conditions";
-
     }
 
-    else {
+    else{
 
         status.innerText =
             "NORMAL";
 
-        statusText.innerText =
-            "Operating normally";
-
     }
 
 
-    removeStatusClasses(status);
+    resetColors(status);
 
-    status.classList.add(color);
+    status.classList.add(
+        color
+    );
 
 
-    /*
-    ACTION TOP
-    */
+    document.getElementById(
+        "machineStatusText"
+    ).innerText =
+
+        probability >= criticalThreshold
+        ? "Immediate attention recommended"
+
+        : probability >= mediumThreshold
+        ? "Monitor operating conditions"
+
+        : "Operating normally";
+
 
     const actionTop =
         document.getElementById(
             "actionTop"
         );
 
-    if(probability >= 70)
-        actionTop.innerText =
-            "INSPECT NOW";
 
-    else if(probability >= 30)
-        actionTop.innerText =
-            "MONITOR";
+    actionTop.innerText =
 
-    else
-        actionTop.innerText =
-            "CONTINUE";
+        probability >= criticalThreshold
+        ? "INSPECT NOW"
 
+        : probability >= mediumThreshold
+        ? "MONITOR"
 
-    removeStatusClasses(actionTop);
-
-    actionTop.classList.add(color);
+        : "CONTINUE";
 
 
-    /*
-    FAILURE TEXT
-    */
+    resetColors(actionTop);
+
+    actionTop.classList.add(
+        color
+    );
+
 
     document.getElementById(
         "failureText"
     ).innerText =
-        probability >= 70
+
+        probability >= criticalThreshold
         ? "High chance of machine failure"
-        : probability >= 30
+
+        : probability >= mediumThreshold
         ? "Elevated machine risk"
+
         : "Machine currently stable";
 
 
-    /*
-    AI PANEL
-    */
-
-    const aiAction =
+    const ai =
         document.getElementById(
             "aiAction"
         );
 
-    aiAction.innerText =
+    ai.innerText =
         action;
 
-    removeStatusClasses(aiAction);
+    resetColors(ai);
 
-    aiAction.classList.add(color);
+    ai.classList.add(
+        color
+    );
 
 
     document.getElementById(
         "aiDescription"
     ).innerText =
-        "The AI model analyzed the current " +
-        "machine operating conditions and " +
-        "classified the machine as " +
-        risk +
-        " risk with a " +
+
+        "The machine learning model analyzed " +
+        "the current operating conditions and " +
+        "calculated a " +
         probabilityText +
-        " probability of failure.";
+        " probability of machine failure.";
 
 
-    /*
-    MESSAGE
-    */
+    document.getElementById(
+        "riskMessage"
+    ).innerHTML =
 
-    const message =
-        document.getElementById(
-            "riskMessage"
-        );
+        "Current AI classification: " +
 
-    message.innerHTML =
-        "The machine currently shows a " +
-        "<b class='" + color + "'>" +
-        risk +
-        " risk level</b>. " +
+        "<b class='" +
+        color +
+        "'>" +
+
+        String(risk).toUpperCase() +
+
+        "</b>. " +
+
         action;
 
 
-    /*
-    ALERTS
-    */
+    document.getElementById(
+        "lastAnalysis"
+    ).innerText =
 
-    updateAlerts(
-        probability,
-        risk,
+        "Last Analysis: " +
+        new Date().toLocaleTimeString();
+
+
+    drawChart(
         machine
     );
 
 
-    /*
-    GRAPH
-    */
+    updateAnalysisCount();
 
-    drawChart([
+}
+
+
+/* =========================================
+   ANALYZE PAGE RESULT
+========================================= */
+
+function updateAnalyzePage(
+    probability,
+    risk,
+    action
+){
+
+    const color =
+        colorForRisk(risk);
+
+
+    const p =
+        document.getElementById(
+            "analyzePageProbability"
+        );
+
+    p.innerText =
+        probability.toFixed(2) + "%";
+
+    resetColors(p);
+
+    p.classList.add(
+        color
+    );
+
+
+    const r =
+        document.getElementById(
+            "analyzePageRisk"
+        );
+
+    r.innerText =
+        String(risk).toUpperCase() +
+        " RISK";
+
+    resetColors(r);
+
+    r.classList.add(
+        color
+    );
+
+
+    document.getElementById(
+        "analyzePageAction"
+    ).innerText =
+        action;
+
+}
+
+
+/* =========================================
+   MACHINE INTELLIGENCE
+========================================= */
+
+function updateIntelligence(
+    machine,
+    probability,
+    risk
+){
+
+    document.getElementById(
+        "intelAir"
+    ).innerText =
+
+        machine[
+            "Air temperature [K]"
+        ] + " K";
+
+
+    document.getElementById(
+        "intelProcess"
+    ).innerText =
+
+        machine[
+            "Process temperature [K]"
+        ] + " K";
+
+
+    document.getElementById(
+        "intelSpeed"
+    ).innerText =
+
+        machine[
+            "Rotational speed [rpm]"
+        ] + " rpm";
+
+
+    document.getElementById(
+        "intelTorque"
+    ).innerText =
+
+        machine[
+            "Torque [Nm]"
+        ] + " Nm";
+
+
+    document.getElementById(
+        "intelWear"
+    ).innerText =
+
+        machine[
+            "Tool wear [min]"
+        ] + " min";
+
+
+    const intelRisk =
+        document.getElementById(
+            "intelRisk"
+        );
+
+
+    intelRisk.innerText =
+        String(risk).toUpperCase();
+
+
+    resetColors(
+        intelRisk
+    );
+
+
+    intelRisk.classList.add(
+        colorForRisk(
+            risk
+        )
+    );
+
+
+    document.getElementById(
+        "intelSummary"
+    ).innerText =
+
+        "The predictive model estimates a " +
+
+        probability.toFixed(2) +
+
+        "% probability of failure. " +
+
+        latestAction;
+
+}
+
+
+/* =========================================
+   ALERT SYSTEM
+========================================= */
+
+function updateAlerts(
+    machine,
+    probability,
+    risk
+){
+
+    const alerts = [];
+
+
+    if(
+        probability >=
+        criticalThreshold
+    ){
+
+        alerts.push({
+
+            color:"red",
+
+            icon:"⚠",
+
+            text:
+                "High machine failure probability detected"
+
+        });
+
+    }
+
+
+    if(
+        machine[
+            "Tool wear [min]"
+        ] >= 200
+    ){
+
+        alerts.push({
+
+            color:"yellow",
+
+            icon:"⚙",
+
+            text:
+                "Tool wear exceeds recommended monitoring level"
+
+        });
+
+    }
+
+
+    if(
+        machine[
+            "Process temperature [K]"
+        ] >= 310
+    ){
+
+        alerts.push({
+
+            color:"yellow",
+
+            icon:"♨",
+
+            text:
+                "Process temperature requires monitoring"
+
+        });
+
+    }
+
+
+    if(
+        machine[
+            "Torque [Nm]"
+        ] >= 60
+    ){
+
+        alerts.push({
+
+            color:"yellow",
+
+            icon:"🔩",
+
+            text:
+                "High torque detected"
+
+        });
+
+    }
+
+
+    if(
+        alerts.length === 0
+    ){
+
+        alerts.push({
+
+            color:"green",
+
+            icon:"✓",
+
+            text:
+                "No critical machine alerts detected"
+
+        });
+
+    }
+
+
+    document.getElementById(
+        "activeAlerts"
+    ).innerText =
+
+        alerts.filter(
+            a =>
+            a.color !== "green"
+        ).length;
+
+
+    const html =
+        alerts.map(
+            alert => `
+
+                <div class="alert-row">
+
+                    <span class="${alert.color}">
+                        ${alert.icon}
+                    </span>
+
+                    <span>
+                        ${alert.text}
+                    </span>
+
+                </div>
+
+            `
+        ).join("");
+
+
+    document.getElementById(
+        "dashboardAlerts"
+    ).innerHTML =
+        html;
+
+
+    document.getElementById(
+        "alertsPageContainer"
+    ).innerHTML =
+        html;
+
+}
+
+
+/* =========================================
+   HISTORY
+========================================= */
+
+function getHistory(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "idipHistory"
+            )
+        ) || [];
+
+    }
+
+    catch{
+
+        return [];
+
+    }
+
+}
+
+
+function saveHistory(
+    machine,
+    probability,
+    risk,
+    action
+){
+
+    const history =
+        getHistory();
+
+
+    history.unshift({
+
+        date:
+            new Date()
+            .toLocaleString(),
+
+        type:
+            machine.Type,
+
+        probability:
+            probability,
+
+        risk:
+            risk,
+
+        action:
+            action
+
+    });
+
+
+    if(
+        history.length > 25
+    ){
+
+        history.length = 25;
+
+    }
+
+
+    localStorage.setItem(
+
+        "idipHistory",
+
+        JSON.stringify(
+            history
+        )
+
+    );
+
+
+    renderHistory();
+
+}
+
+
+function renderHistory(){
+
+    const history =
+        getHistory();
+
+
+    const body =
+        document.getElementById(
+            "historyBody"
+        );
+
+
+    if(
+        history.length === 0
+    ){
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="5">
+
+                    No machine analyses have
+                    been recorded yet.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML =
+        history.map(
+            item => {
+
+                const color =
+                    colorForRisk(
+                        item.risk
+                    );
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+                            ${item.date}
+                        </td>
+
+                        <td>
+                            ${item.type}
+                        </td>
+
+                        <td>
+                            ${Number(
+                                item.probability
+                            ).toFixed(2)}%
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="risk-badge ${color}"
+                            >
+
+                                ${String(
+                                    item.risk
+                                ).toUpperCase()}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+                            ${item.action}
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+function clearHistory(){
+
+    localStorage.removeItem(
+        "idipHistory"
+    );
+
+    renderHistory();
+
+}
+
+
+/* =========================================
+   ANALYSIS COUNT
+========================================= */
+
+function updateAnalysisCount(){
+
+    const history =
+        getHistory();
+
+
+    document.getElementById(
+        "machinesAnalyzed"
+    ).innerText =
+        history.length + 1;
+
+}
+
+
+/* =========================================
+   SETTINGS
+========================================= */
+
+function saveSettings(){
+
+    const medium =
+        Number(
+            document.getElementById(
+                "mediumThreshold"
+            ).value
+        );
+
+
+    const critical =
+        Number(
+            document.getElementById(
+                "criticalThreshold"
+            ).value
+        );
+
+
+    if(
+        medium < 0 ||
+        critical > 100 ||
+        medium >= critical
+    ){
+
+        alert(
+            "Thresholds are invalid. " +
+            "Caution must be lower than Critical."
+        );
+
+        return;
+
+    }
+
+
+    mediumThreshold =
+        medium;
+
+    criticalThreshold =
+        critical;
+
+
+    localStorage.setItem(
+        "mediumThreshold",
+        medium
+    );
+
+
+    localStorage.setItem(
+        "criticalThreshold",
+        critical
+    );
+
+
+    alert(
+        "Settings saved successfully."
+    );
+
+}
+
+
+/* =========================================
+   GRAPH
+========================================= */
+
+const canvas =
+    document.getElementById(
+        "trendChart"
+    );
+
+const ctx =
+    canvas.getContext(
+        "2d"
+    );
+
+
+function drawChart(
+    machine
+){
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    const ratio =
+        window.devicePixelRatio || 1;
+
+
+    canvas.width =
+        rect.width * ratio;
+
+    canvas.height =
+        rect.height * ratio;
+
+
+    ctx.setTransform(
+        ratio,
+        0,
+        0,
+        ratio,
+        0,
+        0
+    );
+
+
+    const width =
+        rect.width;
+
+    const height =
+        rect.height;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    const margin = 42;
+
+
+    const values = [
+
         machine[
             "Air temperature [K]"
         ],
@@ -1462,144 +3633,255 @@ function updateDashboard(
         machine[
             "Tool wear [min]"
         ]
-    ]);
-}
+
+    ];
 
 
-/* =============================================
-   ALERT ENGINE
-============================================= */
+    const labels = [
 
-function updateAlerts(
-    probability,
-    risk,
-    machine
-) {
+        "Air Temp",
 
-    const alerts = [];
+        "Process Temp",
 
+        "Speed",
 
-    if(probability >= 70) {
+        "Torque",
 
-        alerts.push({
-            icon: "⚠",
-            color: "red",
-            text:
-                "High failure probability detected"
-        });
+        "Tool Wear"
 
-    }
+    ];
 
 
-    if(
-        machine[
-            "Tool wear [min]"
-        ] >= 200
-    ) {
+    const maxValues = [
 
-        alerts.push({
-            icon: "⚙",
-            color: "yellow",
-            text:
-                "Tool wear is above recommended level"
-        });
+        350,
+        350,
+        2500,
+        100,
+        300
 
-    }
+    ];
 
 
-    if(
-        machine[
-            "Process temperature [K]"
-        ] >= 310
-    ) {
+    const colors = [
 
-        alerts.push({
-            icon: "♨",
-            color: "yellow",
-            text:
-                "Process temperature requires monitoring"
-        });
+        "#3489ff",
 
-    }
+        "#a75eff",
 
+        "#48d76d",
 
-    if(alerts.length === 0) {
+        "#ffad22",
 
-        alerts.push({
-            icon: "✓",
-            color: "green",
-            text:
-                "No critical machine alerts detected"
-        });
+        "#ff4164"
 
-    }
+    ];
 
 
-    document.getElementById(
-        "activeAlerts"
-    ).innerText =
-        alerts.length;
+    const graphWidth =
+        width - margin * 2;
 
 
-    const container =
-        document.getElementById(
-            "alertsContainer"
+    const graphHeight =
+        height - margin * 2;
+
+
+    ctx.strokeStyle =
+        "#19334a";
+
+    ctx.lineWidth = 1;
+
+
+    for(
+        let i = 0;
+        i <= 5;
+        i++
+    ){
+
+        const y =
+            margin +
+            graphHeight / 5 * i;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            margin,
+            y
         );
 
+        ctx.lineTo(
+            width - margin,
+            y
+        );
 
-    container.innerHTML =
-        alerts.map(
-            alert => `
-                <div class="alert-row">
-                    <span class="alert-icon ${alert.color}">
-                        ${alert.icon}
-                    </span>
-                    <span>${alert.text}</span>
-                </div>
-            `
-        ).join("");
+        ctx.stroke();
+
+    }
+
+
+    const points = [];
+
+
+    values.forEach(
+        (value,index) => {
+
+            const normalized =
+                Math.min(
+                    value /
+                    maxValues[index],
+                    1
+                );
+
+
+            const x =
+                margin +
+
+                graphWidth /
+                (values.length - 1) *
+
+                index;
+
+
+            const y =
+                margin +
+
+                graphHeight -
+
+                normalized *
+                graphHeight;
+
+
+            points.push({
+                x,
+                y
+            });
+
+
+            ctx.beginPath();
+
+            ctx.arc(
+                x,
+                y,
+                6,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                colors[index];
+
+
+            ctx.shadowColor =
+                colors[index];
+
+
+            ctx.shadowBlur = 13;
+
+
+            ctx.fill();
+
+
+            ctx.shadowBlur = 0;
+
+
+            ctx.fillStyle =
+                "#ffffff";
+
+
+            ctx.font =
+                "11px Arial";
+
+
+            ctx.textAlign =
+                "center";
+
+
+            ctx.fillText(
+                value,
+                x,
+                y - 13
+            );
+
+
+            ctx.fillStyle =
+                "#8fa5bb";
+
+
+            ctx.fillText(
+                labels[index],
+                x,
+                height - 10
+            );
+
+        }
+
+    );
+
+
+    ctx.beginPath();
+
+
+    points.forEach(
+        (point,index) => {
+
+            if(index === 0){
+
+                ctx.moveTo(
+                    point.x,
+                    point.y
+                );
+
+            }
+
+            else{
+
+                ctx.lineTo(
+                    point.x,
+                    point.y
+                );
+
+            }
+
+        }
+    );
+
+
+    ctx.strokeStyle =
+        "#3288ff";
+
+    ctx.lineWidth = 2;
+
+    ctx.stroke();
+
 }
 
 
-/* INITIAL GRAPH */
+/* =========================================
+   INITIALIZE
+========================================= */
 
 drawChart(
-    [300,310,1500,50,150]
+    latestMachine
 );
+
+
+renderHistory();
+
+
+document.getElementById(
+    "machinesAnalyzed"
+).innerText =
+    getHistory().length;
+
 
 window.addEventListener(
     "resize",
-    () => drawChart([
-        Number(
-            document.getElementById(
-                "airTemp"
-            ).value
-        ),
-
-        Number(
-            document.getElementById(
-                "processTemp"
-            ).value
-        ),
-
-        Number(
-            document.getElementById(
-                "speed"
-            ).value
-        ),
-
-        Number(
-            document.getElementById(
-                "torque"
-            ).value
-        ),
-
-        Number(
-            document.getElementById(
-                "toolWear"
-            ).value
+    () =>
+        drawChart(
+            latestMachine
         )
-    ])
 );
 
 </script>
