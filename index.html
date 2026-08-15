@@ -2571,25 +2571,16 @@ async function requestPrediction(
 
                 method:"POST",
 
-                headers:{
-
-                    "Content-Type":
-                        "application/json",
-
-                    "ngrok-skip-browser-warning":
-                        "true"
-
-                },
-
-                body:
-                    JSON.stringify(
-                        machineData
-                    )
-
-            }
-
-        );
-
+               Const response = await fetch(
+    API_BASE + "/predict",
+    {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(machineData)
+    }
+);
 
     if(!response.ok){
 
