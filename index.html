@@ -2557,45 +2557,26 @@ function analyzePageMachineData(){
 /* =========================================
    API REQUEST
 ========================================= */
+Async function requestPrediction(machineData) {
+    const response = await fetch(
+        API_BASE + "/predict",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(machineData)
+        }
+    );
 
-async function requestPrediction(
-    machineData
-){
-
-    const response =
-        await fetch(
-
-            API_BASE + "/predict",
-
-            {
-
-                method:"POST",
-
-               Const response = await fetch(
-    API_BASE + "/predict",
-    {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(machineData)
-    }
-);
-
-    if(!response.ok){
-
+    if (!response.ok) {
         throw new Error(
-            "Backend status: " +
-            response.status
+            "Backend status: " + response.status
         );
-
     }
-
 
     return await response.json();
-
 }
-
 
 /* =========================================
    DASHBOARD ANALYSIS
