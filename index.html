@@ -2557,7 +2557,7 @@ function analyzePageMachineData(){
 /* =========================================
    API REQUEST
 ========================================= */
-Async function requestPrediction(machineData) {
+async function requestPrediction(machineData) {
     const response = await fetch(
         API_BASE + "/predict",
         {
